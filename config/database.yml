@@ -83,3 +83,4 @@ production:
   database: filth_finder_backend_production
   username: filth_finder_backend
   password: <%= ENV['FILTH_FINDER_BACKEND_DATABASE_PASSWORD'] %>
+  url: <%= ENV.fetch('DATABASE_URL', '').sub(/^postgres/, "postgis") %>
