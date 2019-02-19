@@ -8,6 +8,8 @@ namespace :establishments do
     establishments = JSON.parse(response.body)
 
     establishments.each do |e_obj|
+      existing = Establishment.find_by_camis(e_obj["camis"])
+      next if existing
       e = Establishment.new camis: e_obj["camis"], dba: e_obj["dba"], address: [e_obj["building"], e_obj["street"], e_obj["zipcode"]].join(" ")
       location = client.address(house_number: e_obj["building"], street: e_obj["street"], borough: e_obj["boro"], zip: e_obj["zipcode"])
 
